@@ -1,0 +1,110 @@
+---
+layout: layouts/base.njk
+title: Meetings & Minutes
+eyebrow: Government
+lede: Agendas, minutes, and the schedule for the Council and every town board.
+tags: []
+breadcrumbs:
+  - label: Government
+    url: /government/
+---
+
+{% include "partials/page-header.njk" %}
+
+<div class="mx-auto max-w-6xl px-4 py-10">
+  <section>
+    <h2 class="font-display text-2xl font-bold">Council records</h2>
+    <div class="mt-5 overflow-x-auto">
+      <table class="w-full min-w-[40rem] border-collapse text-left text-sm">
+        <caption class="sr-only">Town Council meetings, most recent first</caption>
+        <thead>
+          <tr class="border-b-2 border-navy-200 bg-navy-50">
+            <th scope="col" class="px-3 py-2.5 font-semibold">Date</th>
+            <th scope="col" class="px-3 py-2.5 font-semibold">Meeting</th>
+            <th scope="col" class="px-3 py-2.5 font-semibold">Time</th>
+            <th scope="col" class="px-3 py-2.5 font-semibold">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for meeting in collections.meetings %}
+            <tr class="border-b border-navy-100 align-top">
+              <td class="px-3 py-2.5 whitespace-nowrap">
+                <time datetime="{{ meeting.date | isoDate }}">{{ meeting.date | shortDate }}</time>
+              </td>
+              <th scope="row" class="px-3 py-2.5 text-left font-semibold">
+                <a href="{{ meeting.url }}" class="text-bay-700 no-underline hover:underline"
+                  >{{ meeting.data.title }}</a
+                >
+                <span class="block font-normal text-navy-500">{{ meeting.data.location }}</span>
+              </th>
+              <td class="px-3 py-2.5 whitespace-nowrap">{{ meeting.data.time }}</td>
+              <td class="px-3 py-2.5">
+                {# text-slate-800, not text-navy-800: bg-sand-200 doesn't invert in
+                   dark mode, so its text has to stay fixed-dark too #}
+                <span
+                  class="inline-block rounded px-2 py-0.5 text-xs font-semibold whitespace-nowrap {% if meeting.data.status === 'Minutes approved' %}bg-marsh-100 text-marsh-700{% elif meeting.data.status === 'Upcoming' %}bg-bay-100 text-bay-700{% else %}bg-sand-200 text-slate-800{% endif %}"
+                  >{{ meeting.data.status }}</span
+                >
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="mt-12 grid gap-8 md:grid-cols-2">
+    <div>
+      <h2 class="font-display text-xl font-bold">Regular schedule</h2>
+      <dl class="mt-4 space-y-3 text-sm">
+        <div class="rounded border border-navy-100 p-4">
+          <dt class="font-semibold">Town Council — legislative session</dt>
+          <dd class="text-navy-700">Third Tuesday, 7:00 p.m., Council Chambers</dd>
+        </div>
+        <div class="rounded border border-navy-100 p-4">
+          <dt class="font-semibold">Town Council — work session</dt>
+          <dd class="text-navy-700">First Tuesday, 6:00 p.m., Council Chambers</dd>
+        </div>
+        <div class="rounded border border-navy-100 p-4">
+          <dt class="font-semibold">Planning Commission</dt>
+          <dd class="text-navy-700">Second Tuesday, 7:00 p.m., Council Chambers</dd>
+        </div>
+        <div class="rounded border border-navy-100 p-4">
+          <dt class="font-semibold">Board of Appeals</dt>
+          <dd class="text-navy-700">Fourth Wednesday, 7:00 p.m., as needed</dd>
+        </div>
+        <div class="rounded border border-navy-100 p-4">
+          <dt class="font-semibold">Parks &amp; Open Space Advisory Board</dt>
+          <dd class="text-navy-700">First Thursday, 6:30 p.m., Heron Field House</dd>
+        </div>
+      </dl>
+    </div>
+
+    <div class="prose-gov">
+      <h2>Participating</h2>
+      <p>
+        Public comment is taken at every regular legislative session. Speakers get three
+        minutes; the period runs 30 minutes. Sign up with the Clerk before the meeting is
+        called to order, or email by 4:00 p.m. that day.
+      </p>
+      <p>
+        Written comment is accepted any time. Anything received before noon on the meeting
+        day is distributed to all members and entered into the record.
+      </p>
+
+      <h2>Records requests</h2>
+      <p>
+        Minutes before 2010 are archived on microfilm and take about ten business days to
+        retrieve. Submit a
+        <a href="/services/records-requests/">public records request</a> to the Town Clerk.
+      </p>
+
+      <h2>Accessibility</h2>
+      <p>
+        Council Chambers is wheelchair accessible and equipped with an assistive listening
+        system. Requests for interpretation or other accommodations should reach the Clerk
+        at least five business days in advance.
+      </p>
+    </div>
+  </section>
+</div>

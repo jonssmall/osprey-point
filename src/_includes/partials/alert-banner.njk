@@ -1,0 +1,45 @@
+{% for alert in alerts %}
+  {% if alert.active %}
+    <div
+      data-alert-banner
+      data-alert-id="{{ alert.url }}"
+      role="region"
+      aria-label="Town alert"
+      {# text-slate-900, not text-navy-900: bg-alert-warning doesn't invert in
+         dark mode, so its text has to stay fixed-dark too #}
+      class="no-print border-b border-black/10 {% if alert.level === 'emergency' %}bg-alert-emergency text-white{% elif alert.level === 'warning' %}bg-alert-warning text-slate-900{% else %}bg-alert-info text-white{% endif %}"
+    >
+      <div class="mx-auto flex max-w-6xl items-start gap-3 px-4 py-3">
+        <svg class="mt-0.5 h-5 w-5 shrink-0" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+          <path
+            fill-rule="evenodd"
+            d="M8.485 2.495c.673-1.167 2.357-1.167 3.03 0l6.28 10.875c.673 1.167-.17 2.63-1.516 2.63H3.72c-1.347 0-2.189-1.463-1.515-2.63L8.485 2.495ZM10 6a.75.75 0 0 1 .75.75v3.5a.75.75 0 0 1-1.5 0v-3.5A.75.75 0 0 1 10 6Zm0 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z"
+            clip-rule="evenodd"
+          />
+        </svg>
+        <div class="flex-1 text-sm">
+          <p class="font-semibold">
+            <span class="sr-only">
+              {%- if alert.level === 'emergency' -%}Emergency alert:
+              {%- elif alert.level === 'warning' -%}Advisory:
+              {%- else -%}Notice:{%- endif -%}
+            </span>
+            {{ alert.headline }}
+          </p>
+          <p class="mt-0.5 opacity-90">{{ alert.detail }}</p>
+          <a href="{{ alert.url }}" class="mt-1 inline-block font-semibold underline underline-offset-2"
+            >Read the full notice</a
+          >
+        </div>
+        <button
+          type="button"
+          data-alert-dismiss
+          hidden
+          class="shrink-0 rounded px-2 py-1 text-sm font-semibold underline underline-offset-2"
+        >
+          Dismiss
+        </button>
+      </div>
+    </div>
+  {% endif %}
+{% endfor %}

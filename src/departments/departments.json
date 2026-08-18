@@ -1,0 +1,7 @@
+{
+  "layout": "layouts/department.njk",
+  "tags": "departments",
+  "eyebrow": "Departments",
+  "breadcrumbs": [{ "label": "Departments", "url": "/departments/" }],
+  "hours": "Monday–Friday, 8:30 a.m. – 4:30 p.m."
+}

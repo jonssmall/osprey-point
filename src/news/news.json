@@ -1,0 +1,6 @@
+{
+  "layout": "layouts/news.njk",
+  "tags": "news",
+  "author": "Office of the Town Manager",
+  "contact": "Contact the Office of the Town Manager at (609) 555-0110 or townhall@ospreypoint.example.gov."
+}

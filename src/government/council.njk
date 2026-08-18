@@ -1,0 +1,67 @@
+---
+layout: layouts/base.njk
+title: Town Council
+eyebrow: Government
+lede: Five elected officials — a Mayor elected at large and four Council Members by district.
+breadcrumbs:
+  - label: Government
+    url: /government/
+---
+
+{% include "partials/page-header.njk" %}
+
+<div class="mx-auto max-w-6xl px-4 py-10">
+  <ul class="space-y-6">
+    {% for member in council %}
+      <li class="rounded border border-navy-100 p-6">
+        <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+          <h2 class="font-display text-xl font-bold">{{ member.name }}</h2>
+          <p class="text-sm font-semibold text-bay-700">{{ member.role }}</p>
+        </div>
+        <p class="mt-0.5 text-sm text-navy-500">
+          {{ member.district }} &middot; Term ends {{ member.termEnds }}
+        </p>
+
+        <p class="mt-3 max-w-3xl text-navy-700">{{ member.bio }}</p>
+
+        <div class="mt-4 grid gap-4 border-t border-navy-100 pt-4 text-sm sm:grid-cols-3">
+          <div>
+            <p class="text-navy-500">Phone</p>
+            <p>{{ member.phone }}</p>
+          </div>
+          <div>
+            <p class="text-navy-500">Email</p>
+            <p class="break-all">
+              <a href="mailto:{{ member.email }}" class="text-bay-700">{{ member.email }}</a>
+            </p>
+          </div>
+          <div>
+            <p class="text-navy-500">Committees</p>
+            <p>{{ member.committees | join(", ") }}</p>
+          </div>
+        </div>
+      </li>
+    {% endfor %}
+  </ul>
+
+  <div class="mt-10 grid gap-6 md:grid-cols-2">
+    <div class="rounded border border-navy-100 bg-navy-50 p-6">
+      <h2 class="font-display text-lg font-bold">Contacting the whole Council</h2>
+      <p class="mt-2 text-navy-700">
+        Email <a href="mailto:council@ospreypoint.example.gov" class="text-bay-700 underline underline-offset-2">council@ospreypoint.example.gov</a>
+        to reach all five members at once. Correspondence to the Council is a public
+        record under the state Open Public Records Act.
+      </p>
+    </div>
+
+    <div class="rounded border border-navy-100 bg-navy-50 p-6">
+      <h2 class="font-display text-lg font-bold">Elections</h2>
+      <p class="mt-2 text-navy-700">
+        Non-partisan municipal elections are held the second Tuesday in May of
+        odd-numbered years. Candidate filing for May 2027 opens January 4, 2027. See the
+        <a href="/departments/town-clerk/" class="text-bay-700 underline underline-offset-2">Town Clerk</a>
+        for petition requirements.
+      </p>
+    </div>
+  </div>
+</div>

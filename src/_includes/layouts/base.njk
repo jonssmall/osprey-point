@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" />
+    <script>
+      // Blocking, not deferred: applies the theme class before first paint so
+      // there's no flash of the wrong theme. Mirrors the resolution logic in
+      // main.ts's initThemeToggle() — keep the two in sync if either changes.
+      (function () {
+        try {
+          var stored = localStorage.getItem("op-theme");
+          var dark =
+            stored === "dark" ||
+            (stored !== "light" &&
+              window.matchMedia("(prefers-color-scheme: dark)").matches);
+          if (dark) document.documentElement.classList.add("dark");
+        } catch (e) {}
+      })();
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{% if title %}{{ title }} | {{ site.shortName }}{% else %}{{ site.name }}{% endif %}</title>
+    <meta name="description" content="{{ description or site.description }}" />
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/assets/css/main.css" />
+    <script type="module" src="/assets/ts/main.ts"></script>
+  </head>
+  <body class="flex min-h-screen flex-col">
+    <a
+      href="#main"
+      {# bg-slate-900, not bg-navy-900: this has to stay fixed-dark so the
+         hardcoded text-white next to it keeps working in both themes #}
+      class="no-print sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:rounded focus:bg-slate-900 focus:px-4 focus:py-2 focus:text-white"
+      >Skip to main content</a
+    >
+
+    {% include "partials/demo-ribbon.njk" %}
+    {% include "partials/header.njk" %}
+    {% include "partials/alert-banner.njk" %}
+
+    <main id="main" class="flex-1">
+      {{ content | safe }}
+    </main>
+
+    {% include "partials/footer.njk" %}
+  </body>
+</html>

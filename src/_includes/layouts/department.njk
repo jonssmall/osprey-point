@@ -1,0 +1,66 @@
+---
+layout: layouts/base.njk
+---
+
+{% include "partials/page-header.njk" %}
+
+<div class="mx-auto max-w-6xl px-4 py-10">
+  <div class="grid gap-10 lg:grid-cols-[minmax(0,1fr)_20rem]">
+    <article class="prose-gov">
+      {{ content | safe }}
+    </article>
+
+    <aside class="space-y-6 lg:pt-2">
+      <div class="rounded border border-navy-100 bg-navy-50 p-5">
+        <h2 class="font-display text-base font-bold">Contact this department</h2>
+        <dl class="mt-3 space-y-2 text-sm">
+          {% if director %}
+            <div>
+              <dt class="text-navy-500">Director</dt>
+              <dd class="font-semibold">{{ director }}</dd>
+            </div>
+          {% endif %}
+          {% if phone %}
+            <div>
+              <dt class="text-navy-500">Phone</dt>
+              <dd><a href="tel:{{ phone | replace(r/[^0-9]/g, '') }}" class="text-bay-700">{{ phone }}</a></dd>
+            </div>
+          {% endif %}
+          {% if email %}
+            <div>
+              <dt class="text-navy-500">Email</dt>
+              <dd class="break-all"><a href="mailto:{{ email }}" class="text-bay-700">{{ email }}</a></dd>
+            </div>
+          {% endif %}
+          {% if location %}
+            <div>
+              <dt class="text-navy-500">Location</dt>
+              <dd>{{ location }}</dd>
+            </div>
+          {% endif %}
+          {% if hours %}
+            <div>
+              <dt class="text-navy-500">Hours</dt>
+              <dd>{{ hours }}</dd>
+            </div>
+          {% endif %}
+        </dl>
+      </div>
+
+      {% if quickLinks %}
+        <div class="no-print rounded border border-navy-100 p-5">
+          <h2 class="font-display text-base font-bold">Common tasks</h2>
+          <ul class="mt-3 space-y-2 text-sm">
+            {% for link in quickLinks %}
+              <li>
+                <a href="{{ link.url }}" class="text-bay-700 no-underline hover:underline"
+                  >{{ link.label }}</a
+                >
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% endif %}
+    </aside>
+  </div>
+</div>

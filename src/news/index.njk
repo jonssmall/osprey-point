@@ -1,0 +1,69 @@
+---
+layout: layouts/base.njk
+title: News & Alerts
+eyebrow: Newsroom
+lede: Announcements, road closures, service changes, and press releases from town departments.
+tags: []
+breadcrumbs: []
+---
+
+{% include "partials/page-header.njk" %}
+
+<div class="mx-auto max-w-6xl px-4 py-10">
+  <div class="grid gap-10 lg:grid-cols-[minmax(0,1fr)_18rem]">
+    <div>
+      <h2 class="sr-only">All news items</h2>
+      <ul class="space-y-8">
+        {% for post in collections.news %}
+          <li class="border-b border-navy-100 pb-8 last:border-0">
+            <p class="text-xs font-semibold uppercase tracking-wide text-bay-700">
+              {{ post.data.category or "Announcement" }}
+            </p>
+            <h3 class="mt-1 font-display text-xl font-bold">
+              <a href="{{ post.url }}" class="text-navy-900 no-underline hover:underline"
+                >{{ post.data.title }}</a
+              >
+            </h3>
+            <p class="mt-2 max-w-2xl text-navy-700">{{ post.data.lede }}</p>
+            <p class="mt-2 text-sm text-navy-500">
+              <time datetime="{{ post.date | isoDate }}">{{ post.date | readableDate }}</time>
+              &middot; {{ post.data.author }}
+            </p>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <aside class="no-print space-y-6">
+      <div class="rounded border border-navy-100 bg-navy-50 p-5">
+        <h2 class="font-display text-base font-bold">Emergency alerts</h2>
+        <p class="mt-2 text-sm text-navy-700">
+          Osprey Point uses the Sedgemere County alert system for evacuations, boil-water
+          notices, and severe weather. Sign-up is free.
+        </p>
+        <p class="mt-3 text-sm">
+          <a href="/contact/" class="font-semibold text-bay-700 no-underline hover:underline"
+            >How to sign up &rarr;</a
+          >
+        </p>
+      </div>
+
+      <div class="rounded border border-navy-100 p-5">
+        <h2 class="font-display text-base font-bold">Media inquiries</h2>
+        <p class="mt-2 text-sm text-navy-700">
+          Press contacts route through the Office of the Town Manager.
+        </p>
+        <dl class="mt-3 space-y-1 text-sm">
+          <div>
+            <dt class="text-navy-500">Phone</dt>
+            <dd>(609) 555-0110</dd>
+          </div>
+          <div>
+            <dt class="text-navy-500">Email</dt>
+            <dd class="break-all">townhall@ospreypoint.example.gov</dd>
+          </div>
+        </dl>
+      </div>
+    </aside>
+  </div>
+</div>

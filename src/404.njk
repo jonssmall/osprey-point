@@ -1,0 +1,40 @@
+---
+layout: layouts/base.njk
+title: Page not found
+permalink: /404.html
+eleventyExcludeFromCollections: true
+---
+
+<div class="mx-auto max-w-3xl px-4 py-16 text-center">
+  <p class="text-sm font-semibold uppercase tracking-wide text-bay-700">Error 404</p>
+  <h1 class="mt-2 text-4xl font-bold">We couldn't find that page</h1>
+  <p class="mt-4 text-lg text-navy-700">
+    The page may have moved, or the link may be out of date. Town records are
+    reorganized periodically and older links sometimes break.
+  </p>
+
+  <ul class="mx-auto mt-8 grid max-w-xl gap-3 text-left sm:grid-cols-2">
+    {% set spots = [
+      { label: "Services", url: "/services/", note: "Permits, billing, collection" },
+      { label: "Departments", url: "/departments/", note: "Offices and contacts" },
+      { label: "Meetings & Minutes", url: "/government/meetings/", note: "Agendas and the record" },
+      { label: "Staff Directory", url: "/directory/", note: "Reach a person directly" }
+    ] %}
+    {% for spot in spots %}
+      <li>
+        <a
+          href="{{ spot.url }}"
+          class="flex h-full flex-col rounded border border-navy-100 p-4 no-underline hover:border-bay-500 hover:bg-bay-50"
+        >
+          <span class="font-semibold text-navy-900">{{ spot.label }}</span>
+          <span class="mt-0.5 text-sm text-navy-500">{{ spot.note }}</span>
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+
+  <p class="mt-10 text-navy-700">
+    Still stuck? Call Town Hall at {{ site.phone }} during business hours, or
+    <a href="/contact/" class="text-bay-700 underline underline-offset-2">see all contact options</a>.
+  </p>
+</div>

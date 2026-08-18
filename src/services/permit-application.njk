@@ -1,0 +1,302 @@
+---
+layout: layouts/base.njk
+title: Apply for a Permit
+eyebrow: Services
+lede: Start a residential building permit application. Nothing on this page is submitted anywhere — it is a demonstration form.
+tags: []
+breadcrumbs:
+  - label: Services
+    url: /services/
+---
+
+{% include "partials/page-header.njk" %}
+
+<div class="mx-auto max-w-6xl px-4 py-10">
+  <div class="grid gap-10 lg:grid-cols-[minmax(0,1fr)_18rem]">
+    <div>
+      <div class="mb-8 rounded border-l-4 border-alert-info bg-navy-50 p-4">
+        <p class="text-sm text-navy-800">
+          <strong>Demonstration only.</strong> This form does not submit, save, or
+          transmit anything. Do not enter real personal information.
+        </p>
+      </div>
+
+      <form data-demo-form novalidate class="space-y-10">
+        <fieldset class="space-y-5">
+          <legend class="font-display text-xl font-bold">1. Applicant</legend>
+
+          <div class="grid gap-5 sm:grid-cols-2">
+            <div>
+              <label for="applicant-name" class="block text-sm font-semibold">Full name</label>
+              <input
+                id="applicant-name"
+                name="applicant-name"
+                type="text"
+                autocomplete="off"
+                class="mt-1.5 w-full rounded border border-navy-200 px-3 py-2"
+              />
+            </div>
+            <div>
+              <label for="applicant-role" class="block text-sm font-semibold">Applying as</label>
+              <select
+                id="applicant-role"
+                name="applicant-role"
+                class="mt-1.5 w-full rounded border border-navy-200 bg-white px-3 py-2 dark:bg-navy-50"
+              >
+                <option>Property owner</option>
+                <option>Licensed contractor</option>
+                <option>Owner's authorized agent</option>
+                <option>Tenant with owner consent</option>
+              </select>
+            </div>
+            <div>
+              <label for="applicant-phone" class="block text-sm font-semibold">Daytime phone</label>
+              <input
+                id="applicant-phone"
+                name="applicant-phone"
+                type="tel"
+                autocomplete="off"
+                class="mt-1.5 w-full rounded border border-navy-200 px-3 py-2"
+              />
+            </div>
+            <div>
+              <label for="applicant-email" class="block text-sm font-semibold">Email</label>
+              <input
+                id="applicant-email"
+                name="applicant-email"
+                type="email"
+                autocomplete="off"
+                class="mt-1.5 w-full rounded border border-navy-200 px-3 py-2"
+              />
+              <p class="mt-1 text-xs text-navy-500">
+                Deficiency letters and inspection results are sent by email.
+              </p>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="space-y-5">
+          <legend class="font-display text-xl font-bold">2. Property</legend>
+
+          <div>
+            <label for="property-address" class="block text-sm font-semibold">Street address</label>
+            <input
+              id="property-address"
+              name="property-address"
+              type="text"
+              autocomplete="off"
+              class="mt-1.5 w-full rounded border border-navy-200 px-3 py-2"
+            />
+          </div>
+
+          <div class="grid gap-5 sm:grid-cols-2">
+            <div>
+              <label for="property-parcel" class="block text-sm font-semibold">
+                Parcel ID <span class="font-normal text-navy-500">(optional)</span>
+              </label>
+              <input
+                id="property-parcel"
+                name="property-parcel"
+                type="text"
+                autocomplete="off"
+                class="mt-1.5 w-full rounded border border-navy-200 px-3 py-2"
+              />
+            </div>
+            <div>
+              <label for="property-zoning" class="block text-sm font-semibold">Zoning district</label>
+              <select
+                id="property-zoning"
+                name="property-zoning"
+                class="mt-1.5 w-full rounded border border-navy-200 bg-white px-3 py-2 dark:bg-navy-50"
+              >
+                <option>I don't know</option>
+                <option>R-1 Residential</option>
+                <option>R-3 Residential</option>
+                <option>B-1 Waterfront Business</option>
+                <option>Other</option>
+              </select>
+            </div>
+          </div>
+
+          <fieldset>
+            <legend class="text-sm font-semibold">
+              Is the work within 100 feet of tidal water?
+            </legend>
+            <p class="mt-1 text-xs text-navy-500">
+              CAFRA review adds 10–15 business days and a buffer management plan.
+            </p>
+            <div class="mt-2 space-y-2">
+              {% for option in ["Yes", "No", "Not sure"] %}
+                <label class="flex items-center gap-2 text-sm">
+                  <input type="radio" name="critical-area" value="{{ option }}" class="size-4" />
+                  {{ option }}
+                </label>
+              {% endfor %}
+            </div>
+          </fieldset>
+        </fieldset>
+
+        <fieldset class="space-y-5">
+          <legend class="font-display text-xl font-bold">3. Proposed work</legend>
+
+          <fieldset>
+            <legend class="text-sm font-semibold">Permit type — select all that apply</legend>
+            <div class="mt-2 grid gap-2 sm:grid-cols-2">
+              {% set permitTypes = [
+                "Addition or alteration",
+                "New dwelling",
+                "Deck or porch",
+                "Shed over 200 sq ft",
+                "Fence",
+                "Roofing or siding",
+                "Electrical",
+                "Plumbing",
+                "Mechanical (HVAC)",
+                "Pool or hot tub",
+                "Sign",
+                "Demolition"
+              ] %}
+              {% for type in permitTypes %}
+                <label class="flex items-center gap-2 text-sm">
+                  <input type="checkbox" name="permit-type" value="{{ type }}" class="size-4" />
+                  {{ type }}
+                </label>
+              {% endfor %}
+            </div>
+          </fieldset>
+
+          <div class="grid gap-5 sm:grid-cols-2">
+            <div>
+              <label for="work-value" class="block text-sm font-semibold">
+                Estimated value of work
+              </label>
+              <div class="mt-1.5 flex items-center rounded border border-navy-200 px-3">
+                <span class="text-navy-500">$</span>
+                <input
+                  id="work-value"
+                  name="work-value"
+                  type="text"
+                  inputmode="numeric"
+                  class="w-full border-0 py-2 pl-1 outline-none"
+                />
+              </div>
+              <p class="mt-1 text-xs text-navy-500">
+                Materials and labor, including donated or self-performed work.
+              </p>
+            </div>
+            <div>
+              <label for="work-start" class="block text-sm font-semibold">Anticipated start date</label>
+              <input
+                id="work-start"
+                name="work-start"
+                type="date"
+                class="mt-1.5 w-full rounded border border-navy-200 px-3 py-2"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label for="work-description" class="block text-sm font-semibold">
+              Describe the work
+            </label>
+            <textarea
+              id="work-description"
+              name="work-description"
+              rows="5"
+              class="mt-1.5 w-full rounded border border-navy-200 px-3 py-2"
+            ></textarea>
+            <p class="mt-1 text-xs text-navy-500">
+              Include dimensions, materials, and whether any structural elements or
+              exterior openings change.
+            </p>
+          </div>
+
+          <div>
+            <label for="contractor" class="block text-sm font-semibold">
+              Contractor and state license number
+              <span class="font-normal text-navy-500">(if applicable)</span>
+            </label>
+            <input
+              id="contractor"
+              name="contractor"
+              type="text"
+              autocomplete="off"
+              class="mt-1.5 w-full rounded border border-navy-200 px-3 py-2"
+            />
+          </div>
+        </fieldset>
+
+        <fieldset class="space-y-3">
+          <legend class="font-display text-xl font-bold">4. Attachments</legend>
+          <p class="text-sm text-navy-700">
+            A complete application includes a site plan showing setbacks, construction
+            drawings, and — within 100 feet of tidal water — a buffer management plan.
+            Incomplete applications are the most common cause of delay.
+          </p>
+          <div class="rounded border-2 border-dashed border-navy-200 p-6 text-center">
+            <p class="text-sm text-navy-500">
+              File upload is disabled in this demonstration.
+            </p>
+          </div>
+        </fieldset>
+
+        <div class="border-t border-navy-100 pt-6">
+          <label class="flex items-start gap-2 text-sm">
+            <input type="checkbox" name="attest" class="mt-0.5 size-4" />
+            <span>
+              I attest that the information given is accurate and that I am authorized to
+              apply for this permit.
+            </span>
+          </label>
+
+          <div class="mt-6 flex flex-wrap items-center gap-3">
+            <button
+              type="submit"
+              class="rounded bg-bay-600 px-6 py-2.5 font-semibold text-white hover:bg-bay-700"
+            >
+              Submit application
+            </button>
+            <button
+              type="reset"
+              class="rounded border border-navy-200 px-6 py-2.5 font-semibold text-navy-800 hover:bg-navy-50"
+            >
+              Clear form
+            </button>
+          </div>
+
+          {# text-slate-900, not text-navy-900: bg-sand-100 doesn't invert in dark
+             mode, so its text has to stay fixed-dark too #}
+          <p
+            data-demo-form-notice
+            hidden
+            tabindex="-1"
+            role="status"
+            class="mt-4 rounded border-l-4 border-alert-warning bg-sand-100 p-4 text-sm text-slate-900"
+          >
+            <strong>Nothing was submitted.</strong> This is a demonstration site — the form
+            has no backend, and the values you entered were not sent or stored anywhere.
+          </p>
+        </div>
+      </form>
+    </div>
+
+    <aside class="no-print space-y-6">
+      <div class="rounded border border-navy-100 bg-navy-50 p-5">
+        <h2 class="font-display text-base font-bold">Before you apply</h2>
+        <ul class="mt-3 space-y-2 text-sm">
+          <li><a href="/services/building-permits/" class="text-bay-700 no-underline hover:underline">What needs a permit</a></li>
+          <li><a href="/services/records-requests/" class="text-bay-700 no-underline hover:underline">Public records requests</a></li>
+          <li><a href="/departments/planning-zoning/" class="text-bay-700 no-underline hover:underline">Planning &amp; Zoning</a></li>
+        </ul>
+      </div>
+
+      <div class="rounded border border-navy-100 p-5">
+        <h2 class="font-display text-base font-bold">Need help?</h2>
+        <p class="mt-2 text-sm text-navy-700">
+          Call Planning &amp; Zoning at (609) 555-0170 before you start work. A stop-work
+          order and double fees cost far more than a phone call.
+        </p>
+      </div>
+    </aside>
+  </div>
+</div>

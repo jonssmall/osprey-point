@@ -1,0 +1,64 @@
+---
+layout: layouts/base.njk
+---
+
+<div class="border-b border-navy-100 bg-linear-to-b from-navy-50 to-white dark:to-navy-950">
+  <div class="mx-auto max-w-4xl px-4 py-8">
+    <nav aria-label="Breadcrumb" class="no-print mb-3 text-sm">
+      <a href="/government/meetings/" class="text-bay-700 no-underline hover:underline"
+        >&larr; All meetings &amp; minutes</a
+      >
+    </nav>
+    <p class="text-sm font-semibold uppercase tracking-wide text-bay-700">{{ governingBody }}</p>
+    <h1 class="mt-1 text-3xl font-bold sm:text-4xl">{{ title }}</h1>
+
+    <dl class="mt-5 grid gap-4 text-sm sm:grid-cols-4">
+      <div>
+        <dt class="text-navy-500">Date</dt>
+        <dd class="font-semibold">
+          <time datetime="{{ page.date | isoDate }}">{{ page.date | readableDate }}</time>
+        </dd>
+      </div>
+      <div>
+        <dt class="text-navy-500">Time</dt>
+        <dd class="font-semibold">{{ time }}</dd>
+      </div>
+      <div>
+        <dt class="text-navy-500">Location</dt>
+        <dd class="font-semibold">{{ location }}</dd>
+      </div>
+      <div>
+        <dt class="text-navy-500">Status</dt>
+        <dd>
+          {# text-slate-800, not text-navy-800: bg-sand-200 doesn't invert in dark
+             mode, so its text has to stay fixed-dark too, not follow navy's flip #}
+          <span
+            class="inline-block rounded px-2 py-0.5 text-xs font-semibold {% if status === 'Minutes approved' %}bg-marsh-100 text-marsh-700{% elif status === 'Upcoming' %}bg-bay-100 text-bay-700{% else %}bg-sand-200 text-slate-800{% endif %}"
+            >{{ status }}</span
+          >
+        </dd>
+      </div>
+    </dl>
+  </div>
+</div>
+
+<div class="mx-auto max-w-4xl px-4 py-10">
+  <article class="prose-gov max-w-none">
+    {{ content | safe }}
+  </article>
+
+  <div class="no-print mt-10 flex flex-wrap gap-3 border-t border-navy-100 pt-6 text-sm">
+    <button
+      type="button"
+      onclick="window.print()"
+      class="rounded border border-navy-200 px-4 py-2 font-semibold text-navy-800 hover:bg-navy-50"
+    >
+      Print this record
+    </button>
+    <a
+      href="/contact/"
+      class="rounded border border-navy-200 px-4 py-2 font-semibold text-navy-800 no-underline hover:bg-navy-50"
+      >Request a certified copy</a
+    >
+  </div>
+</div>

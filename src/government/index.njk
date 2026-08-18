@@ -1,0 +1,96 @@
+---
+layout: layouts/base.njk
+title: Government
+eyebrow: Government
+lede: How Osprey Point is governed, when it meets, and where to find the record.
+breadcrumbs: []
+---
+
+{% include "partials/page-header.njk" %}
+
+<div class="mx-auto max-w-6xl px-4 py-10">
+  <div class="grid gap-10 lg:grid-cols-[minmax(0,1fr)_18rem]">
+    <div class="prose-gov">
+      <h2>Form of government</h2>
+      <p>
+        Osprey Point operates under a Faulkner Act council–manager charter adopted in
+        1974. Residents elect a Mayor at large and four Council Members by district to
+        staggered four-year terms in non-partisan elections. The Council sets policy,
+        adopts the budget, and passes ordinances; the Town Manager, appointed by the
+        Council, runs daily operations and supervises department directors.
+      </p>
+
+      <h2>When the Council meets</h2>
+      <p>
+        The Council holds a regular legislative session on the <strong>third Tuesday</strong>
+        of each month at 7:00 p.m. in Council Chambers, and a work session on the
+        <strong>first Tuesday</strong> at 6:00 p.m. Work sessions are for discussion only;
+        no votes are taken.
+      </p>
+      <p>
+        Meetings are open to the public and streamed. As the state Open Public Meetings
+        Act requires, agendas are posted at least 48 hours in advance and the town files
+        an annual notice of its regular schedule. Draft minutes go up within five business
+        days of approval.
+      </p>
+
+      <h2>Speaking at a meeting</h2>
+      <p>
+        Every regular session includes a public comment period near the top of the agenda.
+        Speakers get three minutes each and the period runs 30 minutes total. Sign up with
+        the Clerk before the meeting is called to order, or email the Clerk by 4:00 p.m.
+        that day to be added to the list.
+      </p>
+      <p>
+        You may also submit written comment at any time. Comments received before noon on
+        the meeting day are distributed to all members and entered into the record.
+      </p>
+
+      <h2>Boards and commissions</h2>
+      <ul>
+        <li><strong>Planning Commission</strong> — second Tuesday, 7:00 p.m.</li>
+        <li><strong>Board of Appeals</strong> — fourth Wednesday, as needed</li>
+        <li><strong>Ethics Commission</strong> — quarterly</li>
+        <li><strong>Parks &amp; Open Space Advisory Board</strong> — first Thursday</li>
+        <li><strong>Bay Restoration Task Force</strong> — monthly through 2027</li>
+      </ul>
+      <p>
+        Seven board seats are open as of August 2026. Residents may apply through the Town
+        Clerk; appointments are made by the Mayor with Council confirmation.
+      </p>
+
+      <h2>Ordinances and the charter</h2>
+      <p>
+        The town charter and the codified ordinances are maintained by the Town Clerk.
+        Ordinances adopted since the last codification are available as individual
+        documents from the Clerk's office.
+      </p>
+    </div>
+
+    <aside class="no-print space-y-6">
+      <div class="rounded border border-navy-100 bg-navy-50 p-5">
+        <h2 class="font-display text-base font-bold">In this section</h2>
+        <ul class="mt-3 space-y-2 text-sm">
+          <li><a href="/government/council/" class="text-bay-700 no-underline hover:underline">Town Council</a></li>
+          <li><a href="/government/meetings/" class="text-bay-700 no-underline hover:underline">Meetings &amp; Minutes</a></li>
+          <li><a href="/government/notices/" class="text-bay-700 no-underline hover:underline">Public Notices</a></li>
+          <li><a href="/government/budget/" class="text-bay-700 no-underline hover:underline">Budget &amp; Finance</a></li>
+        </ul>
+      </div>
+
+      <div class="rounded border border-navy-100 p-5">
+        <h2 class="font-display text-base font-bold">Next meetings</h2>
+        <ul class="mt-3 space-y-3 text-sm">
+          {% for meeting in collections.meetings | limit(3) %}
+            <li>
+              <a href="{{ meeting.url }}" class="font-semibold text-bay-700 no-underline hover:underline"
+                >{{ meeting.data.title }}</a
+              >
+              <span class="block text-navy-500">{{ meeting.date | shortDate }}</span>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </aside>
+  </div>
+</div>

@@ -1,0 +1,165 @@
+@import "tailwindcss";
+
+/* Dark mode is class-based (html.dark), driven by main.ts + the anti-FOUC
+   inline script in base.njk, and defaults to prefers-color-scheme when the
+   visitor hasn't made an explicit choice. The default Tailwind v4 `dark:`
+   variant is media-query-only, which can't be overridden by that toggle —
+   this custom-variant swaps it to the class strategy. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Design tokens for the town's visual identity. Tailwind v4 turns each of
+   these into a utility (bg-navy-700, text-bay-600, font-display, …). */
+@theme {
+  --color-navy-50: oklch(0.97 0.012 250);
+  --color-navy-100: oklch(0.93 0.025 250);
+  --color-navy-200: oklch(0.86 0.04 250);
+  --color-navy-500: oklch(0.52 0.09 250);
+  --color-navy-700: oklch(0.36 0.08 250);
+  --color-navy-800: oklch(0.28 0.065 250);
+  --color-navy-900: oklch(0.21 0.05 250);
+  /* Placeholder — this stop only does real work under the .dark override
+     below (the page canvas), but Tailwind needs a value here to generate
+     the bg-navy-950 / dark:to-navy-950 utilities at all. */
+  --color-navy-950: oklch(0.16 0.03 250);
+
+  --color-bay-50: oklch(0.97 0.02 195);
+  --color-bay-100: oklch(0.93 0.045 195);
+  --color-bay-500: oklch(0.63 0.1 195);
+  --color-bay-600: oklch(0.54 0.095 195);
+  --color-bay-700: oklch(0.44 0.08 195);
+
+  --color-marsh-100: oklch(0.94 0.045 120);
+  --color-marsh-600: oklch(0.55 0.11 140);
+  --color-marsh-700: oklch(0.45 0.1 140);
+
+  --color-sand-50: oklch(0.98 0.012 85);
+  --color-sand-100: oklch(0.95 0.022 85);
+  --color-sand-200: oklch(0.9 0.035 85);
+
+  --color-alert-emergency: oklch(0.5 0.19 25);
+  --color-alert-warning: oklch(0.72 0.15 70);
+  --color-alert-info: oklch(0.55 0.11 245);
+
+  --font-display: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --font-sans:
+    "Public Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+/* The navy scale is this site's structural ink, surface, and border scale,
+   so it inverts wholesale under dark mode — every bg-navy, text-navy, and
+   border-navy utility across every template picks this up automatically,
+   with no per-template changes. Accent scales (bay, marsh, sand, alert) are
+   used as badges, buttons, and links; those stay put rather than inverting,
+   which keeps badge pairings like bg-sand-200 + text-slate-800 legible
+   without special-casing (see the three spots pinned to text-slate-* instead
+   of text-navy-* in meeting.njk, government/meetings/index.njk, and
+   permit-application.njk). bay-50 gets one exception below since it's used
+   as a large-area hover and blockquote tint, not a small badge chip. */
+:root.dark {
+  --color-navy-950: oklch(0.155 0.028 250);
+  --color-navy-50: oklch(0.235 0.04 250);
+  --color-navy-100: oklch(0.3 0.045 250);
+  --color-navy-200: oklch(0.37 0.05 250);
+  --color-navy-500: oklch(0.66 0.055 250);
+  --color-navy-700: oklch(0.82 0.032 250);
+  --color-navy-800: oklch(0.895 0.022 250);
+  --color-navy-900: oklch(0.96 0.012 250);
+
+  --color-bay-50: oklch(0.26 0.05 195);
+  --color-sand-50: oklch(0.24 0.025 85);
+}
+
+/* Chrome that's intentionally dark regardless of the page theme — the nav
+   bar, the footer, and the homepage hero — re-declares the tokens it uses
+   back to their light-mode values. Without this, .dark above would flip
+   bg-navy-800/900 to near-white while their hardcoded text-white sits on
+   top unchanged, breaking exactly the elements meant to stay fixed. */
+.theme-invariant {
+  --color-navy-50: oklch(0.97 0.012 250);
+  --color-navy-100: oklch(0.93 0.025 250);
+  --color-navy-200: oklch(0.86 0.04 250);
+  --color-navy-500: oklch(0.52 0.09 250);
+  --color-navy-700: oklch(0.36 0.08 250);
+  --color-navy-800: oklch(0.28 0.065 250);
+  --color-navy-900: oklch(0.21 0.05 250);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-white text-navy-900 font-sans antialiased dark:bg-navy-950;
+  }
+
+  /* Government sites are read on projectors, printed, and zoomed. Keep focus
+     rings loud and never remove them. */
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-bay-600;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display text-navy-900;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+}
+
+@layer components {
+  .prose-gov {
+    @apply max-w-[68ch] text-[1.0625rem] leading-relaxed text-navy-800;
+  }
+
+  .prose-gov h2 {
+    @apply mt-10 mb-3 text-2xl font-semibold;
+  }
+
+  .prose-gov h3 {
+    @apply mt-8 mb-2 text-xl font-semibold;
+  }
+
+  .prose-gov p {
+    @apply my-4;
+  }
+
+  .prose-gov ul {
+    @apply my-4 list-disc space-y-2 pl-6;
+  }
+
+  .prose-gov ol {
+    @apply my-4 list-decimal space-y-2 pl-6;
+  }
+
+  .prose-gov a {
+    @apply text-bay-700 underline underline-offset-2 hover:text-navy-900;
+  }
+
+  .prose-gov table {
+    @apply my-6 w-full border-collapse text-left text-sm;
+  }
+
+  .prose-gov th {
+    @apply border-b-2 border-navy-200 bg-navy-50 px-3 py-2 font-semibold;
+  }
+
+  .prose-gov td {
+    @apply border-b border-navy-100 px-3 py-2 align-top;
+  }
+
+  .prose-gov blockquote {
+    @apply my-6 border-l-4 border-bay-500 bg-bay-50 py-2 pl-4 italic;
+  }
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "layout": "layouts/meeting.njk",
+  "tags": "meetings",
+  "governingBody": "Osprey Point Town Council",
+  "time": "7:00 p.m.",
+  "location": "Council Chambers, Town Hall"
+}

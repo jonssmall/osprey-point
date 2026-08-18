@@ -1,0 +1,74 @@
+---
+layout: layouts/base.njk
+title: Staff Directory
+eyebrow: Contact
+lede: Reach a specific office or staff member directly.
+breadcrumbs:
+  - label: Contact
+    url: /contact/
+---
+
+{% include "partials/page-header.njk" %}
+
+<div class="mx-auto max-w-6xl px-4 py-10">
+  <div data-directory-filter-wrapper hidden class="no-print mb-6 max-w-md">
+    <label for="directory-filter" class="block text-sm font-semibold text-navy-800">
+      Filter the directory
+    </label>
+    <input
+      id="directory-filter"
+      type="search"
+      data-directory-filter
+      placeholder="Name, title, or department"
+      class="mt-1.5 w-full rounded border border-navy-200 px-3 py-2"
+    />
+    <p data-directory-count aria-live="polite" class="mt-1.5 text-sm text-navy-500">
+      Showing all {{ staff.length }} staff members
+    </p>
+  </div>
+
+  <div class="overflow-x-auto">
+    <table class="w-full min-w-[46rem] border-collapse text-left text-sm">
+      <caption class="sr-only">
+        Osprey Point staff directory, sorted by department
+      </caption>
+      <thead>
+        <tr class="border-b-2 border-navy-200 bg-navy-50">
+          <th scope="col" class="px-3 py-2.5 font-semibold">Name</th>
+          <th scope="col" class="px-3 py-2.5 font-semibold">Title</th>
+          <th scope="col" class="px-3 py-2.5 font-semibold">Department</th>
+          <th scope="col" class="px-3 py-2.5 font-semibold">Phone</th>
+          <th scope="col" class="px-3 py-2.5 font-semibold">Email</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for person in staff %}
+          <tr
+            data-directory-row
+            data-search="{{ person.name }} {{ person.title }} {{ person.department }}"
+            class="border-b border-navy-100 align-top even:bg-navy-50/40"
+          >
+            <th scope="row" class="px-3 py-2.5 text-left font-semibold text-navy-900">
+              {{ person.name }}
+              <span class="block font-normal text-navy-500">{{ person.location }}</span>
+            </th>
+            <td class="px-3 py-2.5">{{ person.title }}</td>
+            <td class="px-3 py-2.5">{{ person.department }}</td>
+            <td class="px-3 py-2.5 whitespace-nowrap">{{ person.phone }}</td>
+            <td class="px-3 py-2.5">
+              <a href="mailto:{{ person.email }}" class="break-all text-bay-700">{{ person.email }}</a>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <p class="mt-6 max-w-2xl text-sm text-navy-700">
+    Elected officials are listed separately on the
+    <a href="/government/council/" class="text-bay-700 underline underline-offset-2"
+      >Town Council</a
+    >
+    page.
+  </p>
+</div>

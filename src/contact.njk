@@ -1,0 +1,111 @@
+---
+layout: layouts/base.njk
+title: Contact Town Hall
+eyebrow: Contact
+lede: Phone numbers, hours, where to park, and how to reach a specific office.
+breadcrumbs: []
+---
+
+{% include "partials/page-header.njk" %}
+
+<div class="mx-auto max-w-6xl px-4 py-10">
+  <div class="grid gap-10 lg:grid-cols-[minmax(0,1fr)_20rem]">
+    <div class="prose-gov">
+      <h2>Town Hall</h2>
+      <p>
+        {{ site.address.line1 }}<br />
+        {{ site.address.line2 }}<br />
+        {{ site.address.city }}, {{ site.address.state }} {{ site.address.zip }}
+      </p>
+      <p>
+        <strong>Main line:</strong> {{ site.phone }}<br />
+        <strong>Fax:</strong> {{ site.fax }}<br />
+        <strong>Email:</strong> {{ site.email }}<br />
+        <strong>Hours:</strong> {{ site.hours }}
+      </p>
+      <p>
+        Town Hall is closed on New Year's Day, Martin Luther King Jr. Day, Presidents'
+        Day, Memorial Day, Juneteenth, Independence Day, Labor Day, Veterans Day,
+        Thanksgiving and the day after, and Christmas Day.
+      </p>
+
+      <h2>Emergency and after-hours</h2>
+      <ul>
+        <li><strong>Emergencies:</strong> 911</li>
+        <li><strong>Police non-emergency:</strong> (609) 555-0155</li>
+        <li><strong>Public Works emergency (24 hours):</strong> (609) 555-0139</li>
+      </ul>
+      <p>
+        Use the Public Works emergency line for water main breaks, sewer backups,
+        downed trees blocking a road, and road hazards outside business hours.
+      </p>
+
+      <h2>Getting here and parking</h2>
+      <p>
+        Town Hall sits at the corner of Marsh Landing Road and Bay Street. Free public
+        parking is in the lot behind the building, entered from Bay Street. Four
+        accessible spaces are next to the rear entrance, which is the step-free way in.
+        Route 3 stops at Marsh Landing and Bay.
+      </p>
+      <p>
+        <strong>During the culvert closure through August 29,</strong> reach the lot from
+        the Bay Street side; the Marsh Landing approach is closed to through traffic.
+      </p>
+
+      <h2>Emergency alerts</h2>
+      <p>
+        Osprey Point uses the Sedgemere County alert system for evacuations, boil-water
+        notices, and severe weather. Registration is free and takes a couple of minutes.
+        You choose text, voice, email, or all three. The town does not use the system for
+        routine announcements.
+      </p>
+
+      <h2>Accessibility</h2>
+      <p>
+        Town Hall and Council Chambers are wheelchair accessible, and Chambers has an
+        assistive listening system. Requests for interpretation, materials in an
+        alternate format, or other accommodations should reach the Town Clerk at least
+        five business days ahead at (609) 555-0111.
+      </p>
+      <p>
+        To report a barrier to access or file an ADA grievance, contact the Town Manager's
+        office at (609) 555-0110.
+      </p>
+
+      <h2>Media inquiries</h2>
+      <p>
+        Press contacts route through the Office of the Town Manager at (609) 555-0110.
+        Department staff will refer media questions there.
+      </p>
+    </div>
+
+    <aside class="no-print space-y-6">
+      <div class="rounded border border-navy-100 bg-navy-50 p-5">
+        <h2 class="font-display text-base font-bold">Department lines</h2>
+        <dl class="mt-3 space-y-2.5 text-sm">
+          {% for dept in collections.departments %}
+            <div>
+              <dt>
+                <a href="{{ dept.url }}" class="font-semibold text-bay-700 no-underline hover:underline"
+                  >{{ dept.data.title }}</a
+                >
+              </dt>
+              <dd class="text-navy-700">{{ dept.data.phone }}</dd>
+            </div>
+          {% endfor %}
+        </dl>
+      </div>
+
+      <div class="rounded border border-navy-100 p-5">
+        <h2 class="font-display text-base font-bold">Looking for a person?</h2>
+        <p class="mt-2 text-sm text-navy-700">
+          The
+          <a href="/directory/" class="text-bay-700 underline underline-offset-2">staff directory</a>
+          lists every office with a direct line. Elected officials are on the
+          <a href="/government/council/" class="text-bay-700 underline underline-offset-2">Town Council</a>
+          page.
+        </p>
+      </div>
+    </aside>
+  </div>
+</div>

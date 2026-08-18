@@ -1,0 +1,143 @@
+<header class="no-print border-b-4 border-bay-600 bg-white dark:bg-navy-950">
+  <div class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-4">
+    <a href="/" class="flex items-center gap-3 no-underline">
+      <svg
+        class="h-11 w-11 shrink-0 text-bay-700"
+        viewBox="0 0 48 48"
+        fill="none"
+        aria-hidden="true"
+      >
+        <circle cx="24" cy="24" r="23" fill="currentColor" opacity="0.1" />
+        <circle cx="24" cy="24" r="22.5" stroke="currentColor" stroke-width="1.5" />
+        <path
+          d="M9 30c4-1 6-3.5 8-7 1.6-2.8 3.6-5 7-5s5.4 2.2 7 5c2 3.5 4 6 8 7"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+        />
+        <path
+          d="M15 33.5c3.5.5 6-.5 9-2.5 3 2 5.5 3 9 2.5"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          opacity="0.6"
+        />
+        <circle cx="24" cy="15" r="2.5" fill="currentColor" />
+      </svg>
+      <span class="leading-tight">
+        <span class="block font-display text-xl font-bold text-navy-900"
+          >{{ site.name }}</span
+        >
+        <span class="block text-xs text-navy-500"
+          >{{ site.county }}, {{ site.state }} &middot; Est. {{ site.incorporated }}</span
+        >
+      </span>
+    </a>
+
+    <div class="flex items-center gap-2">
+      <button
+        type="button"
+        data-theme-toggle
+        class="rounded border border-navy-200 p-2 text-navy-800 hover:bg-navy-50"
+        aria-label="Theme: matching your device. Activate to switch to light."
+      >
+        <span class="sr-only" data-theme-label>Toggle color theme</span>
+        <svg data-theme-icon="system" class="size-5" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+          <circle cx="10" cy="10" r="7.25" stroke="currentColor" stroke-width="1.5" />
+          <path d="M10 2.75a7.25 7.25 0 0 1 0 14.5Z" fill="currentColor" />
+        </svg>
+        <svg
+          data-theme-icon="light"
+          hidden
+          class="size-5"
+          viewBox="0 0 20 20"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.6"
+          stroke-linecap="round"
+          aria-hidden="true"
+        >
+          <circle cx="10" cy="10" r="3.5" />
+          <path d="M10 1.75v2.1M10 16.15v2.1M18.25 10h-2.1M3.85 10h-2.1M15.6 4.4l-1.5 1.5M5.9 14.1l-1.5 1.5M15.6 15.6l-1.5-1.5M5.9 5.9l-1.5-1.5" />
+        </svg>
+        <svg
+          data-theme-icon="dark"
+          hidden
+          class="size-5"
+          viewBox="0 0 20 20"
+          fill="currentColor"
+          aria-hidden="true"
+        >
+          <path d="M17.1 12.7A7.25 7.25 0 0 1 7.3 2.9a7.25 7.25 0 1 0 9.8 9.8Z" />
+        </svg>
+      </button>
+
+      <button
+        type="button"
+        data-nav-toggle
+        hidden
+        aria-expanded="false"
+        aria-controls="primary-nav-panel"
+        class="rounded border border-navy-200 px-3 py-2 text-sm font-semibold text-navy-800 md:hidden"
+      >
+        Menu
+      </button>
+    </div>
+  </div>
+
+  <nav aria-label="Primary" class="theme-invariant border-t border-navy-100 bg-navy-800">
+    <ul class="mx-auto hidden max-w-6xl px-4 md:flex">
+      {% for item in navigation %}
+        <li class="group relative">
+          <a
+            href="{{ item.url }}"
+            class="block px-4 py-3 text-sm font-semibold text-white no-underline hover:bg-navy-700 focus-visible:bg-navy-700 {% if page.url and (page.url + '/').indexOf(item.url) === 0 %}bg-bay-700{% endif %}"
+            >{{ item.label }}</a
+          >
+          {% if item.children %}
+            <ul
+              class="absolute left-0 z-20 hidden min-w-60 border-t-2 border-bay-500 bg-white py-1 shadow-lg group-hover:block group-focus-within:block dark:bg-navy-50"
+            >
+              {% for child in item.children %}
+                <li>
+                  <a
+                    href="{{ child.url }}"
+                    class="block px-4 py-2 text-sm text-navy-800 no-underline hover:bg-navy-50 focus-visible:bg-navy-50"
+                    >{{ child.label }}</a
+                  >
+                </li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+
+    <div id="primary-nav-panel" data-nav-panel class="md:hidden">
+      <ul class="mx-auto max-w-6xl px-4 py-2">
+        {% for item in navigation %}
+          <li class="border-b border-navy-700 last:border-0">
+            <a
+              href="{{ item.url }}"
+              class="block py-3 text-sm font-semibold text-white no-underline"
+              >{{ item.label }}</a
+            >
+            {% if item.children %}
+              <ul class="pb-2 pl-4">
+                {% for child in item.children %}
+                  <li>
+                    <a
+                      href="{{ child.url }}"
+                      class="block py-1.5 text-sm text-navy-100 no-underline"
+                      >{{ child.label }}</a
+                    >
+                  </li>
+                {% endfor %}
+              </ul>
+            {% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </nav>
+</header>

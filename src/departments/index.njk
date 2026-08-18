@@ -1,0 +1,55 @@
+---
+layout: layouts/base.njk
+title: Departments
+eyebrow: Departments
+lede: The offices that run Osprey Point day to day, and how to reach each one.
+tags: []
+breadcrumbs: []
+---
+
+{% include "partials/page-header.njk" %}
+
+<div class="mx-auto max-w-6xl px-4 py-10">
+  <ul class="grid gap-6 md:grid-cols-2">
+    {% for dept in collections.departments %}
+      <li class="flex flex-col rounded border border-navy-100 p-6">
+        <h2 class="font-display text-xl font-bold">
+          <a href="{{ dept.url }}" class="text-navy-900 no-underline hover:underline"
+            >{{ dept.data.title }}</a
+          >
+        </h2>
+        <p class="mt-2 flex-1 text-navy-700">{{ dept.data.lede }}</p>
+
+        <dl class="mt-4 space-y-1 border-t border-navy-100 pt-4 text-sm">
+          <div class="flex gap-2">
+            <dt class="w-20 shrink-0 text-navy-500">Contact</dt>
+            <dd class="font-semibold">{{ dept.data.director }}</dd>
+          </div>
+          <div class="flex gap-2">
+            <dt class="w-20 shrink-0 text-navy-500">Phone</dt>
+            <dd>{{ dept.data.phone }}</dd>
+          </div>
+          <div class="flex gap-2">
+            <dt class="w-20 shrink-0 text-navy-500">Email</dt>
+            <dd class="break-all">
+              <a href="mailto:{{ dept.data.email }}" class="text-bay-700">{{ dept.data.email }}</a>
+            </dd>
+          </div>
+          <div class="flex gap-2">
+            <dt class="w-20 shrink-0 text-navy-500">Office</dt>
+            <dd>{{ dept.data.location }}</dd>
+          </div>
+        </dl>
+      </li>
+    {% endfor %}
+  </ul>
+
+  <div class="mt-10 rounded border border-navy-100 bg-navy-50 p-6">
+    <h2 class="font-display text-lg font-bold">Not sure which office you need?</h2>
+    <p class="mt-2 max-w-2xl text-navy-700">
+      Call Town Hall at {{ site.phone }} during business hours and the front desk will route
+      you, or search the full
+      <a href="/directory/" class="text-bay-700 underline underline-offset-2">staff directory</a>.
+    </p>
+  </div>
+</div>

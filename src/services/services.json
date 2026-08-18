@@ -1,0 +1,6 @@
+{
+  "layout": "layouts/page.njk",
+  "tags": "services",
+  "eyebrow": "Services",
+  "breadcrumbs": [{ "label": "Services", "url": "/services/" }]
+}

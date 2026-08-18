@@ -1,0 +1,182 @@
+---
+layout: layouts/base.njk
+title: Home
+description: Services, meeting records, permits, and news for residents and businesses of the Town of Osprey Point.
+---
+
+<section class="theme-invariant border-b border-navy-100 bg-navy-800 text-white">
+  <div class="mx-auto grid max-w-6xl gap-8 px-4 py-14 lg:grid-cols-2 lg:items-center">
+    <div>
+      <p class="text-sm font-semibold uppercase tracking-wide text-bay-100">
+        {{ site.tagline }}
+      </p>
+      <h1 class="mt-2 text-4xl font-bold text-white sm:text-5xl">
+        Welcome to Osprey Point
+      </h1>
+      <p class="mt-4 max-w-xl text-lg text-navy-100">
+        Osprey Point is a waterfront community of {{ site.population | numberFormat }} 
+        residents on the Sedgemere County shoreline. 
+        Find municipal services, pay bills, apply for permits, access public records, 
+        and stay informed about Town Council decisions and community news.
+      </p>
+
+      <form
+        role="search"
+        action="/services/"
+        class="mt-6 flex max-w-md gap-2"
+        data-demo-form
+      >
+        <label for="site-search" class="sr-only">Search town services</label>
+        <input
+          id="site-search"
+          type="search"
+          name="q"
+          placeholder="Search permits, trash pickup, minutes…"
+          class="w-full rounded border border-navy-500 bg-white px-3 py-2 text-navy-900 placeholder:text-navy-500"
+        />
+        <button
+          type="submit"
+          class="shrink-0 rounded bg-bay-600 px-4 py-2 font-semibold text-white hover:bg-bay-700"
+        >
+          Search
+        </button>
+        <p data-demo-form-notice hidden tabindex="-1" class="sr-only">
+          Search is not wired up in this demonstration.
+        </p>
+      </form>
+    </div>
+
+    <dl class="grid grid-cols-2 gap-4 sm:grid-cols-4 lg:grid-cols-2">
+      <div class="rounded border border-navy-700 bg-navy-900 p-4">
+        <dt class="text-xs uppercase tracking-wide text-navy-200">Incorporated</dt>
+        <dd class="mt-1 font-display text-2xl font-bold text-white">{{ site.incorporated }}</dd>
+      </div>
+      <div class="rounded border border-navy-700 bg-navy-900 p-4">
+        <dt class="text-xs uppercase tracking-wide text-navy-200">Population</dt>
+        <dd class="mt-1 font-display text-2xl font-bold text-white">
+          {{ site.population | numberFormat }}
+        </dd>
+      </div>
+      <div class="rounded border border-navy-700 bg-navy-900 p-4">
+        <dt class="text-xs uppercase tracking-wide text-navy-200">Shoreline</dt>
+        <dd class="mt-1 font-display text-2xl font-bold text-white">11.4 mi</dd>
+      </div>
+      <div class="rounded border border-navy-700 bg-navy-900 p-4">
+        <dt class="text-xs uppercase tracking-wide text-navy-200">Town area</dt>
+        <dd class="mt-1 font-display text-2xl font-bold text-white">6.2 sq mi</dd>
+      </div>
+    </dl>
+  </div>
+</section>
+
+<section class="mx-auto max-w-6xl px-4 py-12">
+  <h2 class="text-2xl font-bold">Services for Residents</h2>
+  <p class="mt-1 text-navy-700">Find commonly requested town services and information.</p>
+
+  <ul class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+    {% set tasks = [
+      { label: "Pay a utility bill", url: "/services/utility-billing/", note: "Water, sewer, and stormwater" },
+      { label: "Apply for a permit", url: "/services/permit-application/", note: "Building, fence, deck, sign" },
+      { label: "Trash & recycling", url: "/services/trash-recycling/", note: "Collection days and holidays" },
+      { label: "Council agendas", url: "/government/meetings/", note: "Agendas, minutes, and video" },
+      { label: "Report a pothole", url: "/departments/public-works/", note: "Streets and drainage" },
+      { label: "Register for a program", url: "/departments/parks-recreation/", note: "Camps, leagues, and the pool" },
+      { label: "Business license", url: "/services/business-licenses/", note: "New and renewal" },
+      { label: "Staff directory", url: "/directory/", note: "Reach a specific office" }
+    ] %}
+    {% for task in tasks %}
+      <li>
+        <a
+          href="{{ task.url }}"
+          class="flex h-full flex-col rounded border border-navy-100 bg-white p-4 no-underline transition hover:border-bay-500 hover:bg-bay-50 dark:bg-navy-50"
+        >
+          <span class="font-semibold text-navy-900">{{ task.label }}</span>
+          <span class="mt-1 text-sm text-navy-500">{{ task.note }}</span>
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+</section>
+
+<section class="border-y border-navy-100">
+  <div class="mx-auto grid max-w-6xl gap-10 px-4 py-12 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
+    <div>
+      <div class="flex items-baseline justify-between gap-4">
+        <h2 class="text-2xl font-bold">Latest news</h2>
+        <a href="/news/" class="text-sm font-semibold text-bay-700 no-underline hover:underline"
+          >All news &rarr;</a
+        >
+      </div>
+
+      <ul class="mt-6 space-y-5">
+        {% for post in collections.news | limit(4) %}
+          <li class="border-b border-navy-100 pb-5 last:border-0">
+            <p class="text-xs font-semibold uppercase tracking-wide text-bay-700">
+              {{ post.data.category or "Announcement" }}
+            </p>
+            <h3 class="mt-1 text-lg font-semibold">
+              <a href="{{ post.url }}" class="text-navy-900 no-underline hover:underline"
+                >{{ post.data.title }}</a
+              >
+            </h3>
+            <p class="mt-1 text-sm text-navy-700">{{ post.data.lede }}</p>
+            <p class="mt-1.5 text-xs text-navy-500">
+              <time datetime="{{ post.date | isoDate }}">{{ post.date | readableDate }}</time>
+            </p>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <div>
+      <div class="flex items-baseline justify-between gap-4">
+        <h2 class="text-2xl font-bold">Meetings</h2>
+        <a
+          href="/government/meetings/"
+          class="text-sm font-semibold text-bay-700 no-underline hover:underline"
+          >All meetings &rarr;</a
+        >
+      </div>
+
+      <ul class="mt-6 space-y-3">
+        {% for meeting in collections.meetings | limit(5) %}
+          <li class="rounded border border-navy-100 bg-white p-4 dark:bg-navy-50">
+            <p class="text-xs text-navy-500">
+              <time datetime="{{ meeting.date | isoDate }}">{{ meeting.date | shortDate }}</time>
+              &middot; {{ meeting.data.time }}
+            </p>
+            <h3 class="mt-1 text-base font-semibold">
+              <a href="{{ meeting.url }}" class="text-navy-900 no-underline hover:underline"
+                >{{ meeting.data.title }}</a
+              >
+            </h3>
+            <p class="mt-1 text-xs text-navy-500">{{ meeting.data.status }}</p>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="mx-auto max-w-6xl px-4 py-12">
+  <div class="flex items-baseline justify-between gap-4">
+    <h2 class="text-2xl font-bold">Departments</h2>
+    <a href="/departments/" class="text-sm font-semibold text-bay-700 no-underline hover:underline"
+      >All departments &rarr;</a
+    >
+  </div>
+
+  <ul class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+    {% for dept in collections.departments %}
+      <li class="rounded border border-navy-100 p-5">
+        <h3 class="font-display text-lg font-bold">
+          <a href="{{ dept.url }}" class="text-navy-900 no-underline hover:underline"
+            >{{ dept.data.title }}</a
+          >
+        </h3>
+        <p class="mt-1.5 text-sm text-navy-700">{{ dept.data.lede }}</p>
+        <p class="mt-3 text-sm text-navy-500">{{ dept.data.phone }}</p>
+      </li>
+    {% endfor %}
+  </ul>
+</section>
